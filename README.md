@@ -1,11 +1,82 @@
-Problem Statement:
-In this project, we're tackling the challenge of predicting tsunamis, which is a task crucial for disaster management. Tsunamis can cause massive destruction, so being able to accurately predict them is essential for saving lives and reducing damage. The goal here is to develop a reliable model that can anticipate wheather a tsunami will occur based on geological and temporal data.
+# Application of Machine Learning for Tsunami Prediction
+Team Information
 
-Project Solution:
-To address this problem, we took several steps. Firstly, we focused on selecting and creating features that could be strong indicators of tsunamis, like earthquake magnitude, location data, and the timing of events. Then, we experimented with different machine learning models, including Logistic Regression, Random Forest, and SVM and After comparing their performance, we have decided to go with an ensemble model, which combines the strengths of these different approaches. This ensemble model was also fine-tuned by us to get the best balance between catching potential tsunamis (recall) and avoiding false alarms (precision).
+- **Team Member 1:** Rakshit Upadhyay  
+  **ID:** WQ24-Z2CGEFbNfS0B1Lf
 
-Success:
-The project was quite successful as we was able to achieve an accuracy of around 78.89% with the ensemble model. Also, the precision for predicting tsunamis was about 83%, meaning the model is pretty reliable for early warnings. This level of accuracy and reliability could be helpful in make a difference in how we approach towards predicting tsunami and response, contributing valuable insights to this field.
+- **Team Member 2:** Mariam Baher Elmaghraby  
+  **ID:** WQ24-a0JkSQECeSwldfO
 
-Future Scope:
-Looking ahead, there are several directions this work could take. One exciting area is integrating the model with real-time data, which could make the predictions even more timely and accurate. There’s also potential to explore quantum computing, which could offer new ways to optimize the model and handle more complex data patterns. On a more basic level, expanding the dataset with more diverse and detailed records would be in help the model generalize better across different regions. Collaborating with experts in geology and oceanography could also provide deeper insights and refine the model further. The main challenges right now are accessing high-quality, real-time data and the computational demands of exploring quantum algorithms, but these are areas we’re are hopeful that in future there will be a lot of work
+- **Team Member 3:** Arina Kleizer  
+  **ID:** WQ24-ABiY30kL7jvzL7T
+## Project Overview
+
+This project focuses on developing a machine learning model to predict tsunamis based on seismic data. The primary goal is to enhance existing tsunami early warning systems by creating a model that can accurately predict the likelihood of a tsunami following an earthquake. This is crucial for minimizing damage and preventing loss of life, as timely warnings can save thousands of lives.
+
+## Objectives and Approach
+
+### Feature Selection and Engineering
+
+- We focused on selecting and engineering features that could serve as strong indicators of tsunamis, such as:
+  - Earthquake magnitude
+  - Geographic location (latitude and longitude)
+  - Interaction between these features
+- Additional features were created to enhance predictive power:
+  - **Magnitude Squared**: The square of the earthquake magnitude.
+  - **Latitude-Longitude Interaction**: The product of latitude and longitude.
+
+### Exploration of Machine Learning Models
+
+- We experimented with several machine learning models, including:
+  - Logistic Regression
+  - Random Forest
+  - Support Vector Machine (SVM)
+- Performance was evaluated using metrics like **accuracy**, **recall**, and **precision**.
+
+### Building an Ensemble Model
+
+- After comparing model performance, we decided to use an ensemble model that combines the strengths of different approaches.
+- The ensemble model was optimized to achieve the best balance between **recall** (capturing potential tsunamis) and **precision** (avoiding false alarms).
+
+## Results
+
+- **Accuracy**: Our ensemble model achieved an accuracy of approximately **78.89%**.
+- **Precision**: The model demonstrated a precision of about **83%** for predicting tsunamis, indicating its reliability for early warnings.
+
+These results suggest that our model is reliable enough to be integrated into tsunami early warning systems, potentially making a significant impact on the field.
+
+## Future Work and Recommendations
+
+### Categorical Variable Processing
+
+- Transform categorical data (e.g., tsunami cause codes) into numerical formats using encoding methods to improve model performance.
+
+### Cross-Validation
+
+- Implement cross-validation to enhance the reliability of model evaluation and minimize random fluctuations in the data.
+
+### Hyperparameter Optimization
+
+- Utilize grid search or randomized search methods for further optimization of model hyperparameters to potentially increase accuracy and recall.
+
+### Class Balancing
+
+- Apply techniques like oversampling or undersampling to address any class imbalance, which could improve prediction accuracy.
+
+### Result Visualization
+
+- Incorporate visual tools such as ROC curves and Precision-Recall curves to better understand model performance and assess risks.
+
+## Limitations
+
+Currently, the main limitations include:
+
+- **Limited Data**: The dataset is relatively small, which may impact model performance.
+- **Class Imbalance**: A potential imbalance in the target variable (e.g., more non-tsunami events than tsunami events) could affect prediction accuracy.
+
+To overcome these limitations, future work could focus on expanding the dataset, using data augmentation techniques, or integrating additional data sources.
+
+---
+
+This README provides an overview of the project, highlighting key objectives, methods, results, and future recommendations. Contributions and feedback are welcome to further improve the model and its applications.
+
