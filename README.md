@@ -76,7 +76,3 @@ Currently, the main limitations include:
 
 To overcome these limitations, future work could focus on expanding the dataset, using data augmentation techniques, or integrating additional data sources.
 
----
-
-This README provides an overview of the project, highlighting key objectives, methods, results, and future recommendations. Contributions and feedback are welcome to further improve the model and its applications.
-
