@@ -1,0 +1,69 @@
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression as LogisticModel
+from sklearn.ensemble import RandomForestClassifier as ForestModel, VotingClassifier as EnsembleModel
+from sklearn.svm import SVC as SVCModel
+from sklearn.metrics import accuracy_score as accuracy, classification_report as report, confusion_matrix as matrix
+
+file_path = 'tsunamis-2024-08-09_22-31-01_+0530.tsv'
+data = pd.read_csv(file_path, sep='\t')
+
+columns_of_interest = [
+    'Year', 'Mo', 'Dy', 'Hr', 'Mn', 'Sec',
+    'Tsunami Cause Code', 'Earthquake Magnitude',
+    'Latitude', 'Longitude', 'Maximum Water Height (m)'
+]
+selected_data = data[columns_of_interest]
+
+selected_data['Tsunami_Flag'] = (selected_data['Maximum Water Height (m)'] > 0).astype(int)
+
+cleaned_data = selected_data.dropna(subset=[
+    'Year', 'Mo', 'Dy', 'Hr', 'Mn', 'Sec', 'Earthquake Magnitude', 'Latitude', 'Longitude'
+])
+
+cleaned_data['Magnitude_Squared'] = cleaned_data['Earthquake Magnitude'] ** 2
+cleaned_data['Lat_Long_Interaction'] = cleaned_data['Latitude'] * cleaned_data['Longitude']
+
+features = [
+    'Magnitude_Squared', 'Earthquake Magnitude', 'Tsunami Cause Code',
+    'Latitude', 'Lat_Long_Interaction'
+]
+model_data = cleaned_data[features + ['Tsunami_Flag']]
+
+X = model_data.drop(columns=['Tsunami_Flag'])
+y = model_data['Tsunami_Flag']
+
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.3, random_state=42)
+
+logistic_model = LogisticModel()
+logistic_model.fit(X_train, y_train)
+y_pred_logistic = logistic_model.predict(X_test)
+
+logistic_accuracy = accuracy(y_test, y_pred_logistic)
+logistic_conf_matrix = matrix(y_test, y_pred_logistic)
+logistic_class_report = report(y_test, y_pred_logistic)
+
+print(f"Logistic Regression Model - Accuracy: {logistic_accuracy}")
+print("Confusion Matrix:\n", logistic_conf_matrix)
+print("Classification Report:\n", logistic_class_report)
+
+logistic_clf = LogisticModel()
+forest_clf = ForestModel(random_state=42)
+svc_clf = SVCModel(probability=True, random_state=42)
+
+ensemble_clf = EnsembleModel(estimators=[('logistic', logistic_clf), ('forest', forest_clf), ('svc', svc_clf)], voting='soft')
+ensemble_clf.fit(X_train, y_train)
+y_pred_ensemble = ensemble_clf.predict(X_test)
+
+ensemble_accuracy = accuracy(y_test, y_pred_ensemble)
+ensemble_conf_matrix = matrix(y_test, y_pred_ensemble)
+ensemble_class_report = report(y_test, y_pred_ensemble)
+
+print(f"Ensemble Model - Accuracy: {ensemble_accuracy}")
+print("Confusion Matrix:\n", ensemble_conf_matrix)
+print("Classification Report:\n", ensemble_class_report)
